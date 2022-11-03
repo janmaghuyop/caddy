@@ -1,0 +1,28 @@
+# /etc/caddy/Caddyfile
+
+
+# global options
+# https://caddyserver.com/docs/caddyfile/options
+{
+    http_port 8080
+    https_port 8443
+}
+
+
+localhost:8080 {
+    redir https://{host}:8443{uri} permanent
+}
+
+localhost:8443 {
+    # https://github.com/FiloSottile/mkcert
+    tls /etc/caddy/certs/localhost.pem /etc/caddy/certs/localhost-key.pem
+
+    handle {
+        root * /usr/share/caddy
+        file_server
+    }
+
+    handle /whoami {
+        reverse_proxy whoami:80
+    }
+}
