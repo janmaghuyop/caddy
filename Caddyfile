@@ -9,13 +9,13 @@
 }
 
 
-localhost:8080 {
+:8080 {
     redir https://{host}:8443{uri} permanent
 }
 
-localhost:8443 {
+:8443 {
     # https://github.com/FiloSottile/mkcert
-    tls /etc/caddy/certs/localhost.pem /etc/caddy/certs/localhost-key.pem
+    tls /etc/caddy/certs/caddy.pem /etc/caddy/certs/caddy-key.pem
 
     handle {
         root * /usr/share/caddy
