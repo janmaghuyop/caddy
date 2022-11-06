@@ -4,6 +4,7 @@ Caddy playground.
 
 Links:
 - https://hub.docker.com/_/caddy
+- https://github.com/caddy-ansible/caddy-ansible
 
 Usage:
 ```bash
@@ -14,6 +15,7 @@ mkcert -install
 mkdir tmp && cd tmp && mkcert caddy localhost 127.0.0.1
 cp $(mkcert -CAROOT)/rootCA.pem tmp
 
+# start
 podman-compose pull
 podman-compose up -d
 podman-compose ps
@@ -28,9 +30,9 @@ curl localhost:8081
 # test on alpine
 podman-compose exec alpine sh
 telnet caddy 8080
-curl -Lv curl --cacert rootCA.pem http://caddy:8080
-curl -Lv curl --cacert rootCA.pem http://caddy:8080/whoami
+curl -Lv --cacert rootCA.pem http://caddy:8080
+curl -Lv --cacert rootCA.pem http://caddy:8080/whoami
 ```
 
 TODO:
-- whitelist 
+- ansible provisioner

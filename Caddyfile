@@ -14,8 +14,15 @@
 }
 
 :8443 {
+    log {
+        output stdout 
+    }
+
     # https://github.com/FiloSottile/mkcert
     tls /etc/caddy/certs/caddy.pem /etc/caddy/certs/caddy-key.pem
+
+    # whitelist
+    @allow_ips remote_ip 10.89.0.4/32
 
     handle {
         root * /usr/share/caddy
@@ -23,6 +30,7 @@
     }
 
     handle /whoami {
-        reverse_proxy whoami:80
+        reverse_proxy @allow_ips whoami:80
     }
+
 }
